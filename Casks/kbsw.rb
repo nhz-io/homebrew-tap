@@ -1,6 +1,6 @@
 cask "kbsw" do
   version "0.1.0"
-  sha256 "26b79b4a95016cbdc60d967b4839afefc960337a53055375ae5419bfd751fb61"
+  sha256 "b21f0207bb741d31da6b8114de0071a1f95747006869e54b643fd0e135acacf3"
 
   url "https://github.com/nhz-io/kbsw/releases/download/v#{version}/kbsw-#{version}-macos-aarch64.zip"
   name "kbsw"
