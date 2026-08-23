@@ -2,8 +2,8 @@ cask "bcdl" do
   arch arm: "aarch64", intel: "x86_64"
 
   version "2.0.0"
-  sha256 arm:   "5354b2f2359efc22248c9a1a8906f2efd4972114632ccdaab8b8faed780a7f4d",
-         intel: "8e8c1b4085bc9a495690a188cfb1ddff5baeac1c1fea8ffaf9be6b2b1cddc888"
+  sha256 arm:   "207ff8c2748a9367dff07dfb9b4df8307240fdb14d53bfda3600b64962801abe",
+         intel: "85fedd23388a9cfdafa4d29785cc5a3671e8ffaf74744543e2f5528f15879319"
 
   url "https://github.com/nhz-io/bandcamp-downloader/releases/download/v#{version}/bcdl-v#{version}-#{arch}-apple-darwin.tar.gz"
   name "bcdl"
