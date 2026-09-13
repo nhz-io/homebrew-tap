@@ -7,15 +7,25 @@ cask "kbsw" do
   desc "Launch and switch macOS apps with global keyboard shortcuts"
   homepage "https://github.com/nhz-io/kbsw"
 
+  depends_on :macos
+
   app "kbsw.app"
+  binary "kbsw.app/Contents/MacOS/kbsw"
 
   postflight do
     system_command "xattr", args: ["-cr", "#{appdir}/kbsw.app"]
+    # Deploy the runtime copy to ~/Applications and (re)start the launch
+    # agent, so upgrades don't leave a stale agent running the old binary.
+    system_command "#{appdir}/kbsw.app/Contents/MacOS/kbsw",
+                   args: ["install", "--force"]
   end
 
+  uninstall launchctl: "io.nhz.kbsw.agent",
+            delete:    "~/Applications/kbsw.app"
+
   zap trash: [
+    "~/.config/kbsw",
     "~/Library/LaunchAgents/io.nhz.kbsw.agent.plist",
     "~/Library/Logs/kbsw.log",
-    "~/.config/kbsw",
   ]
 end
