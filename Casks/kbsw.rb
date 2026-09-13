@@ -12,6 +12,9 @@ cask "kbsw" do
   app "kbsw.app"
   binary "kbsw.app/Contents/MacOS/kbsw"
 
+  # NOTE: intentionally the legacy `postflight` block, not `postflight_steps`:
+  # the steps sandbox redirects HOME, so `kbsw install` cannot deploy the
+  # launch agent from inside it (launchctl bootstrap fails with EIO).
   postflight do
     system_command "xattr", args: ["-cr", "#{appdir}/kbsw.app"]
     # Deploy the runtime copy to ~/Applications and (re)start the launch
@@ -21,7 +24,7 @@ cask "kbsw" do
   end
 
   uninstall launchctl: "io.nhz.kbsw.agent",
-            delete:    "~/Applications/kbsw.app"
+            trash:     "~/Applications/kbsw.app"
 
   zap trash: [
     "~/.config/kbsw",
