@@ -1,0 +1,43 @@
+cask "credproxy" do
+  version "0.1.0"
+  sha256 "42d94cf81b24bba1220d87d441573646c787a57cdfddc00043a2052f3ba56e95"
+
+  url "https://github.com/nhz-io/credproxy/releases/download/v#{version}/credproxy-v#{version}-aarch64-apple-darwin.tar.gz"
+  name "credproxy"
+  desc "Local proxy that holds age-sealed API keys in memory and adds them to allowlisted requests"
+  homepage "https://github.com/nhz-io/credproxy"
+
+  livecheck do
+    url :url
+    strategy :github_latest
+  end
+
+  depends_on arch: :arm64
+  depends_on macos: :sonoma
+  depends_on formula: "age"
+
+  binary "credproxy"
+
+  # NOTE: intentionally the legacy `postflight` block (as se-agent): the steps sandbox redirects HOME, so
+  # `credproxy install` couldn't write the LaunchAgent from inside it.
+  # The binary has no signature, thus Gatekeeper stops it after a download.
+  # Then (re)install the LaunchAgent through the stable /opt/homebrew/bin link, so upgrades don't leave launchd
+  # pointing at a removed Caskroom version. Needs ~/.config/credproxy/config.toml; without it, run
+  # `credproxy install` after writing the config.
+  postflight do
+    system_command "/usr/bin/xattr",
+                   args: ["-dr", "com.apple.quarantine", "#{staged_path}/credproxy"]
+    system_command "#{HOMEBREW_PREFIX}/bin/credproxy", args: ["install"], must_succeed: false
+  end
+
+  uninstall launchctl: "io.nhz.credproxy"
+
+  # ~/.config/credproxy is left alone (your config; e.g. managed by chezmoi).
+  zap trash: [
+    "~/Library/Caches/credproxy",
+    "~/Library/LaunchAgents/io.nhz.credproxy.plist",
+    "~/Library/Logs/credproxy.err.log",
+    "~/Library/Logs/credproxy.log",
+    "~/Library/Logs/credproxy.log.1",
+  ]
+end
