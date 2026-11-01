@@ -4,7 +4,7 @@ cask "credproxy" do
 
   url "https://github.com/nhz-io/credproxy/releases/download/v#{version}/credproxy-v#{version}-aarch64-apple-darwin.tar.gz"
   name "credproxy"
-  desc "Local proxy that holds age-sealed API keys in memory and adds them to allowlisted requests"
+  desc "Local proxy that adds age-sealed API keys to allowlisted requests"
   homepage "https://github.com/nhz-io/credproxy"
 
   livecheck do
@@ -13,8 +13,8 @@ cask "credproxy" do
   end
 
   depends_on arch: :arm64
-  depends_on macos: :sonoma
   depends_on formula: "age"
+  depends_on macos: :sonoma
 
   binary "credproxy"
 
