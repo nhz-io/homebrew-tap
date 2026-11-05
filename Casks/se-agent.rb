@@ -1,6 +1,6 @@
 cask "se-agent" do
-  version "0.1.0"
-  sha256 "7fc6c4ec263bde0a886f9aa0999fd6fe790fc9cc50d77104070baba15232b550"
+  version "0.2.0"
+  sha256 "6981c79d1ad6e0792248853257d34ec503548a05e7be63c8e47b852ba2ba723b"
 
   url "https://github.com/nhz-io/se-agent/releases/download/v#{version}/se-agent-v#{version}-aarch64-apple-darwin.tar.gz"
   name "se-agent"
