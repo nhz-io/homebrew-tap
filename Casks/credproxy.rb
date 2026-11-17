@@ -1,6 +1,6 @@
 cask "credproxy" do
-  version "0.6.0"
-  sha256 "a5d3ce584c4617d88b7aac3bc6dfcce5d357fccccf8eb017cd8a97f7b65eba61"
+  version "0.7.0"
+  sha256 "477dc67c7d9de52d1621581d598232e2bab56ba1f66cf6b0a9d456d0bff9b35f"
 
   url "https://github.com/nhz-io/credproxy/releases/download/v#{version}/credproxy-v#{version}-aarch64-apple-darwin.tar.gz"
   name "credproxy"
